@@ -11,19 +11,16 @@ fuel = np.sum(np.abs(np.array(positions)-np.median(positions)))
 print(fuel)
 
 # Part B
-# Maybe there is a mathematical formula for that full value
-# but I am not sure. I will try brute force, computing the arithmetic sums
+# The  number integer that minimizes the arithmetic distances to it
+# is called "arithmetic mean". We have to test ceil and floor however,
+# because we're approximating by an integer
 
 def arithmetic_sum(j):
     return j*(j+1)/2
 
-best_fuel = 10**12
+best_pos = np.mean(positions)
 
-for n in range(max(positions)):
-    fuel = np.sum([arithmetic_sum(np.abs(p-n)) for p in positions])
-    if fuel < best_fuel:
-        best_fuel = fuel
-        best_pos = n
+fuel_1 = np.sum(arithmetic_sum(np.abs(positions-np.ceil(best_pos))))
+fuel_2 = np.sum(arithmetic_sum(np.abs(positions-np.floor(best_pos))))
+print(min(fuel_1, fuel_2))
 
-print(best_fuel)
-print(best_pos)
